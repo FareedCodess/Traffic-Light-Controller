@@ -1,0 +1,9 @@
+module tlc_test(input clk, reset, enable, output wire[3:0]r, g, output [7:0]seg, an);
+wire[3:0] D0,D1,D2,D3,D4,D5,D6,D7;
+assign r[3] = ~g[3];assign r[2] = ~g[2];assign r[1] = ~g[1];assign r[0] = ~g[0];
+onehz m1(clk, reset, enable, clk1hz);
+mod5 m2(clk, reset, clk1hz, ceo);
+tlc m3(clk, reset, ceo, g[3], g[2], g[1], g[0],  D6, D4, D2, D0);
+//time_remaining m4(clk, reset, clk1hz, g, D6, D4, D2, D0);
+DISP7SEG ssd(clk,D0,D1,D2,D3,D4,D5,D6,D7, text_mode,slow,med, fast, error, seg, an);
+endmodule

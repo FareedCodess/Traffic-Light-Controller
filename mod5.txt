@@ -1,0 +1,10 @@
+module mod5(input clk, reset, enable , output CEO);
+reg[3:0] counter = 0;
+assign CEO = (counter == 4 ) && enable;
+always @(posedge clk)
+if (reset || CEO)
+counter <= 0;
+else if (enable)
+counter <= counter + 1;
+
+endmodule

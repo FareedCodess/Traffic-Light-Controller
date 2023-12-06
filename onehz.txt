@@ -1,0 +1,9 @@
+module onehz( input clk, reset, enable, output clk1hz);
+reg[26:0] counter;
+assign clk1hz = (counter == 99999999);
+always@(posedge clk)
+if (reset || clk1hz )
+	counter <= 0;
+else if (enable)
+	counter <= counter + 1;
+endmodule

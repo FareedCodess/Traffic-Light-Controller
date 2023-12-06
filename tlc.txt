@@ -1,0 +1,21 @@
+module tlc(input clk, reset, enable, output reg s4, s3, s2, s1);
+reg[1:0] state;
+reg[1:0] next_state;
+parameter STATE1 = 2'b00, STATE2 = 2'b01,STATE3 = 2'b10,STATE4 = 2'b11;
+always @(posedge clk, posedge reset)
+	if (reset) state <= STATE1;
+	else if(enable) state <= next_state;
+	always@(state)begin
+	s1 = 0; s2 = 0; s3 = 0; s4 = 0;
+	case (state)
+	STATE1:
+	begin s1 = 1 ; next_state = STATE2; end
+	STATE2:
+	begin s2 = 1 ; next_state = STATE3; end
+	STATE3:
+	begin s3 = 1 ; next_state = STATE4; end
+	STATE4:
+	begin s4 = 1 ; next_state = STATE1; end	
+	endcase
+	end
+endmodule
